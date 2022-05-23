@@ -1,24 +1,75 @@
-ALGORITHM dot_product
+PROCEDURE dot_product(v1,v2 : ARRAY_OF INTEGER , VAR dot : INTEGER)
 VAR
-    vector1 , vector2 : array_of_integer;
-    i, n : INTEGER;
+   i :INTEGER;
 BEGIN
-    PROCEDURE calcul(vector1,vector2)
-    VAR
-       result = 0;
-    BEGIN
-        FOR i FROM 0 TO vector1.length-1  STEP step 1 DO
-          result = vector1[i] * vector2[i]
-        END_FOR
-       IF (result = 0) THEN
-           write ('orthogonal')
-       ELSE
-           write ('not orthogonal')
-       END_IF
-    END
-    FOR i FROM 1 TO n STEP step 1 DO
-        read(vector1);
-        read(vector2);
-        calcul(vector1,vector2)
-    END_FOR
+    dot :=0;
+    i:=0;
+    IF (v1.length <> v2.length) THEN
+        write("vectors with defferent sizes we cannot calculat dot product");
+        dot := NaN ; //not deifine number
+    END_IF
+    WHILE (i < v1.length) DO
+        dot := dot + v1[i]*v2[i]
+    END_WHILE
+END
+//2
+ALGORITHM orth_vectors
+VAR
+    v1 , v2 : ARRAY_OF INTEGER [50];
+    dot : INTEGER ;
+BEGIN
+    //read size V1 
+    n1:= read_size();
+    //read elements of v1
+    read_array(n1,v1);
+       //read size V1 
+    n2:= read_size();
+    //read elements of v1
+    read_array(n2,v2);
+    dot_product(v1,v2,dot);
+    IF (dot = 0) THEN
+        write("v1 and v2 are orthogonal");
+    ELSE 
+    write("v1 and v2 are not orthogonal");
+    END_IF
+END
+
+//3
+
+FUNCTION dot_product(v1,v2 : ARRAY_OF INTEGER) : INTEGER
+VAR
+    i , dot : INTEGER ;
+BEGIN
+    dot:= 0 ;
+    i:=0;
+    IF (v1.length <> v2.length) THEN
+        write("vectors with defferent sizes we cannot calculat dot product")
+        RETURN NaN ;
+    END_IF
+    WHILE (i<v1.length) DO
+        dot := dot + v1[i]*v2[i];
+    END_WHILE
+    RETURN dot ;
+END
+
+//4 
+ALGORITHM orth_vectors
+VAR
+    v1 , v2 : ARRAY_OF INTEGER [50];
+    dot : INTEGER ;
+BEGIN
+    //read size V1 
+    n1:= read_size();
+    //read elements of v1
+    read_array(n1,v1);
+       //read size V1 
+    n2:= read_size();
+    //read elements of v1
+    read_array(n2,v2);
+    dot_product(v1,v2,dot);
+    IF (dot = 0) THEN
+        write("v1 and v2 are orthogonal");
+    ELSE 
+    write("v1 and v2 are not orthogonal");
+    END_IF
 END
